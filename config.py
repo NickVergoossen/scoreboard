@@ -8,9 +8,13 @@ config.read("config.ini")
 app = QtWidgets.QApplication()
 wid = QtWidgets.QWidget()
 wid.setWindowTitle('De titel')
+layout = QtWidgets.QFormLayout(wid)
 wid.show()
 
-layout = QtWidgets.QFormLayout(wid)
+opslaan = QtWidgets.QPushButton('opslaan', wid)
+layout.addWidgets(opslaan)
+annuleren = QtWidgets.QtPushButton('annuleren', wid)
+
 
 label = QtWidgets.QLabel("titel:")
 
@@ -23,12 +27,16 @@ edit_title_size.setMinimum(1000)
 edit_title_size.setValue(config["title"].getint("font"))
 layout.addRow(label, edit_title_size)
 
-def select_team_a_logo():
-    result = QtWidgets.QFileDialog.getOpenFileName()
-    filename = result[0]
-    button_team_a_logo.setText(filename)
-    print(filename)
-    return filename
+def opgeslagen():
+    configfile = open("config.ini", "w")
+    config.write(configfile)
+    print("opgeslagen")
+
+def geannuleerd():
+    print("Geannuleerd")
+
+opslaan.clicked.connect(opgeslagen)
+annuleren.clicked.connect(geannuleerd)
 
 app.exec_()
 
