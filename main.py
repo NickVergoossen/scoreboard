@@ -24,14 +24,16 @@ while running:
             running = False
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                score_home = score_home + 1
                 game.score("H")
 
             if event.key == pygame.K_RIGHT:
                 game.score("A")
-            if event.key == pygame.K_r:
-                score_home = 0
-                score_away = 0
+
+            if event.key == pygame.K_DOWN:
+                score_home == 0
+                score_away == 0
+                sets_home == 0
+                sets_away == 0
 
     if score_home >= set and score_home >= score_away + 2:
         score_home = 0
@@ -47,6 +49,7 @@ while running:
 
     label = f"""De score tijdens de match is {game.points_home} - {game.points_away}"""
     text = font.render(f"""Maaseik {game.points_home} - {game.points_away}  Roeselare""", True, "black")
+    reset = font.render(f"""reset de score met pijl omlaag""", True, "black")
     sets = font.render(f"""{game.sets_home} - {game.sets_away}""", True, "black")
     tekstbreedte = text.get_width()
     teksthoogte = text.get_height()
@@ -56,6 +59,7 @@ while running:
     team_B_logo = pygame.transform.smoothscale(team_B_logo, (200, 200))
 
     screen.blit(text, (WIDTH / 2 - tekstbreedte / 2, HEIGHT / 2 - teksthoogte / 2))
+    screen.blit(reset, (100, 500))
     screen.blit(team_A_logo, (230, 0))
     screen.blit(team_B_logo, (800, 0))
     screen.blit(sets, (485, 400))
